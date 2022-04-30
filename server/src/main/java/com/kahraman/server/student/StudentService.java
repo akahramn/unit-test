@@ -20,7 +20,7 @@ public class StudentService {
 
     public void addStudent(Student student) {
         Boolean existsEmail = studentRepository
-                .selectExistsEmail(student.getEmail());
+                .existsByEmail(student.getEmail());
         if (existsEmail) {
             throw new BadRequestException(
                     "Email " + student.getEmail() + " taken");
