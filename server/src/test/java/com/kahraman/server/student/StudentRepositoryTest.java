@@ -16,7 +16,7 @@ class StudentRepositoryTest {
     void existsByEmail() {
 
         //Given
-        Student student = new Student("Abdullah", "a.kahramnn@gmail.com", Gender.MALE);
+        Student student = new Student("asdasd", "a.kahramnn@gmail.com", Gender.MALE);
         underTest.save(student);
 
         //When
