@@ -1,8 +1,8 @@
 package com.kahraman.server.student;
 
 import com.kahraman.server.exception.BadRequestException;
+import com.kahraman.server.exception.StudentNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -90,6 +90,24 @@ class StudentServiceTest {
 
         // then
         verify(studentRepository).deleteById(id);
+    }
+
+    @Test
+    void willThrowWhenDeleteStudentNotFound() {
+        //Given
+            long id = 10;
+            given(studentRepository.existsById(id)).
+                    willReturn(false);
+        //When
+        //Then
+        assertThatThrownBy(() -> underTestStudentService.deleteStudent(id)).
+                isInstanceOf(StudentNotFoundException.class).
+                hasMessageContaining("Student with id " + id + " does not exists");
+
+        verify(studentRepository, never()).deleteById(any());
+
+
+
     }
 
 
